@@ -1,10 +1,13 @@
 import type { ContentProvider } from "@/lib/content/provider";
 import { fallbackSiteSettings } from "@/data/fallback/site-settings";
-import { fallbackAuthority } from "@/data/fallback/authority";
+import { fallbackCompanyContent, fallbackHomeContent } from "@/data/fallback/pages";
 import { sanityFetch } from "./client";
 import {
   compact,
   normalizeArticle,
+  normalizeAuthority,
+  normalizeCompanyPage,
+  normalizeHomePage,
   normalizeSegment,
   normalizeSiteSettings,
   normalizeSolution,
@@ -12,11 +15,22 @@ import {
 import {
   articleBySlugQuery,
   articlesQuery,
+  authorityQuery,
+  companyPageQuery,
+  homePageQuery,
   segmentsQuery,
   siteSettingsQuery,
   solutionsQuery,
 } from "./queries";
-import type { RawArticle, RawSegment, RawSiteSettings, RawSolution } from "./types";
+import type {
+  RawArticle,
+  RawAuthority,
+  RawCompanyPage,
+  RawHomePage,
+  RawSegment,
+  RawSiteSettings,
+  RawSolution,
+} from "./types";
 
 /**
  * Provider Sanity. Só é usado quando o projeto está configurado.
@@ -50,9 +64,26 @@ export const sanityProvider: ContentProvider = {
     return raw ? normalizeArticle(raw, true) : null;
   },
 
-  // Provas de autoridade ainda não publicadas no CMS (schemas preparados e
-  // desativados). Mantém o fallback, que está todo com enabled: false.
   async getAuthority() {
-    return fallbackAuthority;
+    const raw = await sanityFetch<RawAuthority | null>(authorityQuery, {}, [
+      "authoritySettings",
+      "clientLogo",
+      "testimonial",
+      "caseStudy",
+      "statistic",
+      "certification",
+    ]);
+    return normalizeAuthority(raw);
+  },
+
+  // Singletons: documento ausente no CMS → textos aprovados do fallback.
+  async getHomeContent() {
+    const raw = await sanityFetch<RawHomePage | null>(homePageQuery, {}, ["homePage"]);
+    return normalizeHomePage(raw, fallbackHomeContent);
+  },
+
+  async getCompanyContent() {
+    const raw = await sanityFetch<RawCompanyPage | null>(companyPageQuery, {}, ["companyPage"]);
+    return normalizeCompanyPage(raw, fallbackCompanyContent);
   },
 };

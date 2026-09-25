@@ -107,3 +107,55 @@ export const articleBySlugQuery = /* groq */ `*[_type == "article" && slug.curre
     }
   }
 }`;
+
+const textSection = /* groq */ `{ eyebrow, title, description, items[]${labeled} }`;
+const callToAction = /* groq */ `{ eyebrow, title, description }`;
+
+export const homePageQuery = /* groq */ `*[_type == "homePage"][0]{
+  hero{
+    eyebrow,
+    title,
+    highlight,
+    description,
+    highlights,
+    "image": image${image},
+    primaryCtaLabel,
+    secondaryCtaLabel
+  },
+  "positioning": positioning${textSection},
+  "solutionsIntro": solutionsIntro${textSection},
+  "applications": applications{ eyebrow, title, description, items[]${labeled}, "image": image${image} },
+  "segmentsIntro": segmentsIntro${textSection},
+  "differentiators": differentiators${textSection},
+  "finalCta": finalCta${callToAction}
+}`;
+
+export const companyPageQuery = /* groq */ `*[_type == "companyPage"][0]{
+  hero{ eyebrow, title, description, "image": image${image} },
+  history{ title, paragraphs },
+  "pillars": pillars${textSection},
+  "service": service${textSection},
+  "commitment": commitment${textSection},
+  "relationship": relationship${textSection},
+  "structure": structure{ eyebrow, title, description, items[]${labeled}, "images": images[]${image} },
+  "finalCta": finalCta${callToAction}
+}`;
+
+/**
+ * Provas de autoridade: somente itens marcados como autorizados. Cada bloco
+ * ainda depende de `enabled` no singleton `authoritySettings`.
+ */
+export const authorityQuery = /* groq */ `{
+  "settings": *[_type == "authoritySettings"][0]{ clientLogos, testimonials, cases, statistics, certifications },
+  "clientLogos": *[_type == "clientLogo" && authorized == true] | order(name asc){ name, url, "logo": logo${image} },
+  "testimonials": *[_type == "testimonial" && authorized == true] | order(_createdAt asc){ quote, author, role, company },
+  "cases": *[_type == "caseStudy" && authorized == true] | order(_createdAt asc){
+    title,
+    summary,
+    "segmentSlug": segment->slug.current,
+    "solutionSlug": solution->slug.current,
+    "image": image${image}
+  },
+  "statistics": *[_type == "statistic"] | order(_createdAt asc){ value, label },
+  "certifications": *[_type == "certification"] | order(name asc){ name, description, validUntil, "image": image${image} }
+}`;

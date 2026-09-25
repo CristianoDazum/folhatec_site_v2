@@ -19,6 +19,9 @@ Cobertura E2E (`tests/e2e`):
 | `tracking.spec.ts`    | Sem scripts de terceiros sem IDs, view_solution, view_segment, click_solicitar_cotacao, form_start único, form_submit, canais condicionais |
 | `responsive.spec.ts`  | Overflow em 390/768/1440 (todas as páginas + 404) e Home em 360/430/1024/1366/1920; menu e formulário a 360 |
 | `seo.spec.ts`         | title, description, canonical, OG, H1, hierarquia, unicidade, noindex, Organization/Breadcrumb JSON-LD, sem Product, robots, sitemap |
+| `content.spec.ts`     | Home e Empresa com fallback, história/estrutura ocultas, sem anos/números inventados, autoridade desativada, nenhum texto técnico interno visível |
+| `config-content.spec.ts` | Unitários: validação da URL de produção, normalização de Home, Empresa e Authority |
+| `production.spec.ts`  | Build real de produção: falha com URL local; com URL pública, canonical/OG/JSON-LD/robots/sitemap sem localhost, página indexável, API 503 sem webhook |
 | `a11y.spec.ts`        | axe WCAG 2.1 A/AA em todas as páginas (desktop e mobile), formulário com erros, menu mobile aberto |
 
 Observação: `workers: 2` no Playwright. Em Windows, 4+ Chromium iniciando ao

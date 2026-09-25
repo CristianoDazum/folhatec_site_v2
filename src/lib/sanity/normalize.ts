@@ -5,7 +5,13 @@
  */
 import type {
   Article,
+  AuthorityBlock,
+  AuthorityContent,
+  CallToAction,
+  CompanyContent,
   ContentImage,
+  HomeContent,
+  TextSection,
   FaqItem,
   LabeledValue,
   PostalAddress,
@@ -20,6 +26,12 @@ import type {
 import { ARTICLE_CATEGORIES, isVisualKey } from "@/lib/content/constants";
 import type {
   RawArticle,
+  RawAuthority,
+  RawAuthorityBlockSettings,
+  RawCallToAction,
+  RawCompanyPage,
+  RawHomePage,
+  RawTextSection,
   RawFaq,
   RawImage,
   RawLabeledValue,
@@ -251,4 +263,185 @@ export function normalizeArticle(raw: RawArticle, withBody: boolean): Article | 
 
 export function compact<T>(values: Array<T | null>): T[] {
   return values.filter((value): value is T => value !== null);
+}
+
+/* ------------------------------------------------------------------ */
+/* Singletons de página (Home, Empresa)                                */
+/* ------------------------------------------------------------------ */
+/*
+ * Regras:
+ * - documento inexistente → fallback completo;
+ * - título/texto obrigatório vazio → texto do fallback (evita layout quebrado);
+ * - lista vazia → lista do fallback, exceto em seções opcionais (história,
+ *   estrutura, relacionamento), que só existem com conteúdo do CMS;
+ * - imagem vazia → null (mantém a composição visual neutra).
+ */
+
+function stringList(values: Array<string | null> | null | undefined): string[] {
+  if (!Array.isArray(values)) return [];
+  return values.map(text).filter((value): value is string => value !== null);
+}
+
+function normalizeTextSection(raw: RawTextSection | null | undefined, fallback: TextSection): TextSection {
+  if (!raw) return fallback;
+  const items = normalizeLabeled(raw.items);
+  return {
+    eyebrow: text(raw.eyebrow) ?? fallback.eyebrow,
+    title: text(raw.title) ?? fallback.title,
+    description: text(raw.description) ?? fallback.description,
+    items: items.length ? items : fallback.items,
+  };
+}
+
+/** Seção opcional: só existe se o CMS tiver ao menos título. */
+function normalizeOptionalSection(raw: RawTextSection | null | undefined): TextSection | null {
+  const title = text(raw?.title);
+  if (!raw || !title) return null;
+  return { eyebrow: text(raw.eyebrow), title, description: text(raw.description), items: normalizeLabeled(raw.items) };
+}
+
+function normalizeCta(raw: RawCallToAction | null | undefined, fallback: CallToAction): CallToAction {
+  if (!raw) return fallback;
+  return {
+    eyebrow: text(raw.eyebrow) ?? fallback.eyebrow,
+    title: text(raw.title) ?? fallback.title,
+    description: text(raw.description) ?? fallback.description,
+  };
+}
+
+export function normalizeHomePage(raw: RawHomePage | null, fallback: HomeContent): HomeContent {
+  if (!raw) return fallback;
+  const hero = raw.hero;
+  const heroTitle = text(hero?.title);
+  const highlights = stringList(hero?.highlights);
+  return {
+    hero: {
+      eyebrow: text(hero?.eyebrow) ?? fallback.hero.eyebrow,
+      title: heroTitle ?? fallback.hero.title,
+      // Destaque do fallback só acompanha o título do fallback.
+      highlight: text(hero?.highlight) ?? (heroTitle ? null : fallback.hero.highlight),
+      description: text(hero?.description) ?? fallback.hero.description,
+      highlights: highlights.length ? highlights : fallback.hero.highlights,
+      image: normalizeImage(hero?.image, heroTitle ?? fallback.hero.title),
+      primaryCtaLabel: text(hero?.primaryCtaLabel) ?? fallback.hero.primaryCtaLabel,
+      secondaryCtaLabel: text(hero?.secondaryCtaLabel) ?? fallback.hero.secondaryCtaLabel,
+    },
+    positioning: normalizeTextSection(raw.positioning, fallback.positioning),
+    solutionsIntro: normalizeTextSection(raw.solutionsIntro, fallback.solutionsIntro),
+    applications: {
+      ...normalizeTextSection(raw.applications, fallback.applications),
+      image: normalizeImage(raw.applications?.image),
+    },
+    segmentsIntro: normalizeTextSection(raw.segmentsIntro, fallback.segmentsIntro),
+    differentiators: normalizeTextSection(raw.differentiators, fallback.differentiators),
+    finalCta: normalizeCta(raw.finalCta, fallback.finalCta),
+  };
+}
+
+export function normalizeCompanyPage(raw: RawCompanyPage | null, fallback: CompanyContent): CompanyContent {
+  if (!raw) return fallback;
+  const hero = raw.hero;
+  const historyTitle = text(raw.history?.title);
+  const historyParagraphs = stringList(raw.history?.paragraphs);
+  const structure = normalizeOptionalSection(raw.structure);
+
+  return {
+    hero: {
+      eyebrow: text(hero?.eyebrow) ?? fallback.hero.eyebrow,
+      title: text(hero?.title) ?? fallback.hero.title,
+      description: text(hero?.description) ?? fallback.hero.description,
+      image: normalizeImage(hero?.image, text(hero?.title) ?? fallback.hero.title),
+    },
+    // História só aparece com título e texto vindos do CMS — nunca inventada.
+    history: historyTitle && historyParagraphs.length ? { title: historyTitle, paragraphs: historyParagraphs } : null,
+    pillars: normalizeTextSection(raw.pillars, fallback.pillars),
+    service: normalizeTextSection(raw.service, fallback.service),
+    commitment: normalizeTextSection(raw.commitment, fallback.commitment),
+    relationship: raw.relationship ? normalizeOptionalSection(raw.relationship) : fallback.relationship,
+    structure: structure
+      ? {
+          ...structure,
+          images: (raw.structure?.images ?? [])
+            .map((item) => normalizeImage(item))
+            .filter((item): item is ContentImage => item !== null),
+        }
+      : null,
+    finalCta: normalizeCta(raw.finalCta, fallback.finalCta),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* Provas de autoridade                                                */
+/* ------------------------------------------------------------------ */
+
+function authorityBlock<T>(settings: RawAuthorityBlockSettings | null | undefined, items: T[]): AuthorityBlock<T> {
+  return { enabled: settings?.enabled === true, title: text(settings?.title), items };
+}
+
+function isNotExpired(date: string | null | undefined, now: Date): boolean {
+  const raw = text(date);
+  if (!raw) return true;
+  const end = Date.parse(`${raw}T23:59:59Z`);
+  return Number.isNaN(end) || end >= now.getTime();
+}
+
+/**
+ * Cada bloco só é exibido com `enabled: true` no singleton
+ * `authoritySettings` e itens válidos. Sem configuração, tudo desativado.
+ */
+export function normalizeAuthority(raw: RawAuthority | null, now = new Date()): AuthorityContent {
+  const settings = raw?.settings;
+  return {
+    clientLogos: authorityBlock(
+      settings?.clientLogos,
+      (raw?.clientLogos ?? []).flatMap((item) => {
+        const name = text(item?.name);
+        const logo = normalizeImage(item?.logo, name ?? "");
+        return name && logo ? [{ name, logo, url: normalizeHttpUrl(item?.url) }] : [];
+      }),
+    ),
+    testimonials: authorityBlock(
+      settings?.testimonials,
+      (raw?.testimonials ?? []).flatMap((item) => {
+        const quote = text(item?.quote);
+        const author = text(item?.author);
+        return quote && author ? [{ quote, author, role: text(item?.role), company: text(item?.company) }] : [];
+      }),
+    ),
+    cases: authorityBlock(
+      settings?.cases,
+      (raw?.cases ?? []).flatMap((item) => {
+        const title = text(item?.title);
+        const summary = text(item?.summary);
+        return title && summary
+          ? [
+              {
+                title,
+                summary,
+                segmentSlug: text(item?.segmentSlug),
+                solutionSlug: text(item?.solutionSlug),
+                image: normalizeImage(item?.image, title),
+              },
+            ]
+          : [];
+      }),
+    ),
+    statistics: authorityBlock(
+      settings?.statistics,
+      (raw?.statistics ?? []).flatMap((item) => {
+        const value = text(item?.value);
+        const label = text(item?.label);
+        return value && label ? [{ value, label }] : [];
+      }),
+    ),
+    certifications: authorityBlock(
+      settings?.certifications,
+      (raw?.certifications ?? []).flatMap((item) => {
+        const name = text(item?.name);
+        return name && isNotExpired(item?.validUntil, now)
+          ? [{ name, description: text(item?.description), image: normalizeImage(item?.image, name) }]
+          : [];
+      }),
+    ),
+  };
 }

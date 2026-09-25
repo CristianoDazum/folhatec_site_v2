@@ -87,6 +87,8 @@ Página → data layer (src/lib/content) → provider → Sanity (se configurado
 ```
 
 - Sem `NEXT_PUBLIC_SANITY_PROJECT_ID`/`DATASET`: usa `src/data/fallback`.
+- SiteSettings, Home, Empresa, Soluções, Segmentos, Artigos e Provas de
+  autoridade seguem o mesmo fluxo (Sanity → fallback).
 - Com Sanity: busca via GROQ, normaliza para os tipos de `src/types/content.ts`
   e revalida a cada 5 minutos (ISR).
 - Trocar conteúdo = editar o fallback ou o CMS. Páginas não mudam.
@@ -100,7 +102,7 @@ Copie `.env.example` para `.env.local`. Resumo:
 
 | Variável                              | Uso                                                   |
 | ------------------------------------- | ----------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                | URL absoluta (canonical, sitemap, OG, JSON-LD)        |
+| `NEXT_PUBLIC_SITE_URL`                | URL absoluta (canonical, sitemap, OG, JSON-LD). **Obrigatória em production** (https, não local) |
 | `NEXT_PUBLIC_SITE_ENV`                | `development` / `staging` / `production`              |
 | `NEXT_PUBLIC_GTM_ID`                  | GTM (tem prioridade sobre GA4)                        |
 | `NEXT_PUBLIC_GA4_ID`                  | GA4 direto, somente sem GTM                           |
@@ -110,7 +112,9 @@ Copie `.env.example` para `.env.local`. Resumo:
 | `QUOTE_WEBHOOK_SECRET`                | Assinatura HMAC SHA-256 do corpo                      |
 
 Somente `NEXT_PUBLIC_SITE_ENV=production` permite indexação — e nunca em
-Preview da Vercel (`VERCEL_ENV=preview`).
+Preview da Vercel (`VERCEL_ENV=preview`). Em production, `NEXT_PUBLIC_SITE_URL`
+ausente, inválida, sem https ou local (localhost, 127.0.0.1…) **faz o build
+falhar** — canonical, sitemap, OG e JSON-LD nunca apontam para localhost.
 
 ## Cotação e webhook
 
@@ -138,9 +142,11 @@ Detalhes e atribuição first/last-touch: [`docs/tracking.md`](docs/tracking.md)
 
 ## Testes
 
-176 testes E2E (Chromium) cobrindo rotas, 404, header/dropdown/menu mobile,
-fluxos de cotação, API, tracking, overflow em 8 larguras, SEO, JSON-LD,
-robots, sitemap e acessibilidade (axe WCAG 2.1 AA). Os testes não usam
+194 testes Playwright (Chromium) cobrindo rotas, 404, header/dropdown/menu
+mobile, fluxos de cotação, API, tracking, overflow em 8 larguras, SEO,
+JSON-LD, robots, sitemap, acessibilidade (axe WCAG 2.1 AA), conteúdo em
+fallback, normalização do CMS e um **build real de produção** (falha com URL
+local; com URL pública, nenhuma URL publicada contém localhost). Os testes não usam
 credenciais nem enviam dados para serviços externos.
 Checklist manual: [`docs/qa-checklist.md`](docs/qa-checklist.md).
 

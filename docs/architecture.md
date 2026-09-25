@@ -24,9 +24,15 @@ src/lib/content/index.ts          (data layer, React cache())
 - Tipos crus do Sanity ficam em `src/lib/sanity/types.ts` e nunca saem de lá.
 - Falha no CMS: em produção o erro é propagado (ISR mantém a última versão
   válida); em development/staging registra o erro e usa o fallback.
-- Textos estruturais de Home, Empresa e Política vêm hoje do fallback via
-  `getHomeContent()`, `getCompanyContent()`, `getPrivacyPolicy()`. Migrar para
-  singletons no CMS altera só o data layer.
+- Home (`getHomeContent`), Empresa (`getCompanyContent`) e Provas de
+  autoridade (`getAuthority`) seguem o mesmo fluxo: singletons `homePage`,
+  `companyPage` e `authoritySettings` no Sanity, com fallback local.
+  Documento ausente no CMS → fallback. Layout, grid e estilos nunca vêm do CMS.
+- Política de Privacidade (`getPrivacyPolicy`) fica no código, versionada
+  junto com a revisão jurídica.
+- Sanity não configurado → fallback em qualquer ambiente. Sanity configurado
+  e com falha: em production o erro é propagado (não mascara configuração
+  quebrada); em development/staging registra e usa o fallback.
 
 ## Rotas
 
@@ -59,6 +65,13 @@ Mobile-first. Grids e flex com `min-w-0`; decorativos absolutos dentro de
 wrappers `overflow-clip` locais. Não há `overflow-x: hidden` global. O teste de
 overflow compara `scrollWidth` × `innerWidth` (≤ 1px) e lista os elementos
 causadores quando falha.
+
+## URL pública
+
+`src/lib/config/env.ts` → `resolveSiteUrl()`. Em production a URL precisa ser
+https e não local; caso contrário o módulo lança erro e o build/inicialização
+falha. Em development/staging, URL ausente usa `http://localhost:3000`
+(sempre com noindex).
 
 ## Segurança
 

@@ -3,6 +3,7 @@ import { fallbackAuthority } from "@/data/fallback/authority";
 import { fallbackSegments } from "@/data/fallback/segments";
 import { fallbackSiteSettings } from "@/data/fallback/site-settings";
 import { fallbackSolutions } from "@/data/fallback/solutions";
+import { fallbackCompanyContent, fallbackHomeContent } from "@/data/fallback/pages";
 import type { ContentProvider } from "./provider";
 
 const byOrder = <T extends { order: number; title: string }>(a: T, b: T) =>
@@ -28,5 +29,11 @@ export const fallbackProvider: ContentProvider = {
   },
   async getAuthority() {
     return fallbackAuthority;
+  },
+  async getHomeContent() {
+    return fallbackHomeContent;
+  },
+  async getCompanyContent() {
+    return fallbackCompanyContent;
   },
 };

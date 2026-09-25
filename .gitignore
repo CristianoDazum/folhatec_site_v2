@@ -3,6 +3,7 @@ node_modules/
 
 # Build do Next.js
 .next/
+.next-prod-check/
 out/
 build/
 next-env.d.ts

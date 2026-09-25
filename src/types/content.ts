@@ -232,6 +232,10 @@ export interface HomeContent {
     description: string;
     highlights: string[];
     image: ContentImage | null;
+    /** Rótulo do CTA principal (leva à cotação). */
+    primaryCtaLabel: string;
+    /** Rótulo do CTA secundário (WhatsApp ou página de contato). */
+    secondaryCtaLabel: string;
   };
   positioning: TextSection;
   solutionsIntro: TextSection;

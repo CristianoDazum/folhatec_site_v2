@@ -50,7 +50,7 @@ jobs:
           retention-days: 7
 
   studio:
-    name: Sanity Studio (typecheck)
+    name: Sanity Studio (typecheck, build)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
@@ -65,3 +65,5 @@ jobs:
           cache-dependency-path: sanity/package-lock.json
       - run: npm ci
       - run: npm run typecheck
+      # Compila o Studio sem credenciais (valida schemas e estrutura).
+      - run: npm run build

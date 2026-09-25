@@ -9,6 +9,10 @@
 | Preview Vercel | qualquer            | **sempre noindex** (`VERCEL_ENV=preview`) | conforme env |
 | Produção    | `production`           | index     | **erro 503**           |
 
+Em produção, `NEXT_PUBLIC_SITE_URL` é obrigatória (https, não local). Sem ela o
+build falha — verificado por `tests/e2e/production.spec.ts`, que faz um build
+real em `.next-prod-check` (via `NEXT_DIST_DIR`).
+
 ## Webhook de cotação
 
 - `QUOTE_WEBHOOK_URL`: endpoint HTTPS que recebe o lead (CRM, automação,
@@ -54,16 +58,24 @@ desenvolvimento nem testes.
 ## Sanity
 
 - Frontend: `@sanity/client` com `perspective: "published"`, CDN quando não há
-  token, `next.revalidate = 300` e tags `sanity`, `solution`, `segment`,
-  `article`, `siteSettings` (prontas para revalidação on-demand via webhook
+  token, `next.revalidate = 300` e tags `sanity`, `solution`, `segment`, `homePage`, `companyPage`,
+  `article`, `siteSettings`, `authoritySettings` e tipos de autoridade (prontas para revalidação on-demand via webhook
   do Sanity → `revalidateTag`, a implementar se necessário).
 - Imagens servidas de `cdn.sanity.io` por `next/image` (AVIF/WebP).
 - Studio: pacote separado em `sanity/`.
 
 ## Headers de segurança
 
-Definidos em `next.config.ts`. **CSP pendente**: definir após escolher as
-ferramentas de tracking (GTM exige nonce ou hashes para scripts inline).
+Definidos em `next.config.ts`. **CSP — PENDÊNCIA DE PRODUÇÃO**: definir após
+escolher as ferramentas de tracking (GTM exige nonce ou hashes para scripts
+inline).
+
+## Cookies / LGPD — PENDÊNCIA DE PRODUÇÃO
+
+Nenhum tracker carrega sem IDs configurados e o formulário exige
+consentimento. Não há cookie banner genérico: antes de ativar GTM/GA4/Ads/Meta
+Pixel reais, definir o mecanismo de consentimento (ex.: Consent Mode v2) e
+atualizar a Política de Privacidade.
 
 ## Deploy na Vercel
 

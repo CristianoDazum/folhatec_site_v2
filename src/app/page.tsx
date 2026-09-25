@@ -53,8 +53,10 @@ export default async function HomePage() {
             </h1>
             <p className="text-lead mt-6 max-w-xl">{hero.description}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <QuoteCta location="home_hero" />
-              <SpecialistCta whatsapp={settings.contact.whatsapp} location="home_hero" />
+              <QuoteCta location="home_hero">{hero.primaryCtaLabel}</QuoteCta>
+              <SpecialistCta whatsapp={settings.contact.whatsapp} location="home_hero">
+                {hero.secondaryCtaLabel}
+              </SpecialistCta>
             </div>
             {hero.highlights.length ? (
               <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-6 text-sm text-muted">

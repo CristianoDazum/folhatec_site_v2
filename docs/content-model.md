@@ -70,22 +70,52 @@ segmentos e artigos. Com itens, a página exibe o accordion e o JSON-LD FAQPage.
 `title`, `description`, `ogImage`, `noIndex`. Quando vazios, a página usa
 título/descrição próprios. `noIndex` também remove o item do sitemap.
 
-## Provas de autoridade (desativadas)
+## Provas de autoridade (conectadas, desativadas)
 
 `AuthorityContent` com blocos `{ enabled, title, items }` para
 `clientLogos`, `testimonials`, `cases`, `statistics`, `certifications`.
-Todos `enabled: false` no fallback. Schemas prontos em
-`sanity/schemaTypes/authority.ts`, não registrados. Para ativar:
-1. registrar os tipos em `sanity/schemaTypes/index.ts`;
-2. criar query + normalização em `src/lib/sanity`;
-3. implementar `getAuthority()` no `sanityProvider`.
 
-## Textos de página
+| Sanity                  | Regra                                                         |
+| ----------------------- | ------------------------------------------------------------- |
+| `authoritySettings`     | Singleton com `enabled` (padrão `false`) e título por bloco   |
+| `clientLogo`            | Só entra com `authorized = true` e logo com dimensões          |
+| `testimonial`           | Só entra com `authorized = true`, texto e autor                |
+| `caseStudy`             | Só entra com `authorized = true`; referências viram slugs      |
+| `statistic`             | Valor + legenda                                               |
+| `certification`         | Excluída automaticamente após `validUntil`                     |
 
-`HomeContent`, `CompanyContent`, `PrivacyPolicyContent` — hoje no fallback
-(`src/data/fallback/pages.ts`, `privacy-policy.ts`). `CompanyContent.history`
-e `structure` estão `null` (seções ocultas) até o envio da história oficial e
-de fotos/dados de estrutura.
+Um bloco só é exibido com `enabled: true` **e** itens válidos. No fallback e
+sem documento no CMS, tudo fica desativado.
+
+## Home (`homePage`) e Empresa (`companyPage`)
+
+Singletons editoriais no Sanity; fallback em `src/data/fallback/pages.ts`.
+Somente textos e imagens — layout, grid e classes ficam no código.
+
+| Home (`HomeContent`)  | Campos                                                                 |
+| --------------------- | ---------------------------------------------------------------------- |
+| `hero`                | eyebrow, headline (`title` + `highlight`), apoio, destaques, imagem, rótulos do CTA principal e secundário |
+| `positioning`, `solutionsIntro`, `segmentsIntro`, `differentiators` | eyebrow, título, texto, itens |
+| `applications`        | idem + imagem                                                          |
+| `finalCta`            | eyebrow, título, texto                                                 |
+
+| Empresa (`CompanyContent`) | Campos / regra                                                    |
+| -------------------------- | ----------------------------------------------------------------- |
+| `hero`                     | eyebrow, título, introdução, imagem                               |
+| `history`                  | título + parágrafos; **oculta** sem conteúdo do CMS               |
+| `service`                  | forma de atendimento                                              |
+| `pillars`                  | conhecimento técnico, qualidade, agilidade, relacionamento…       |
+| `commitment`               | compromisso com qualidade e prazo                                 |
+| `relationship`             | opcional; sem título no CMS, a seção fica oculta                  |
+| `structure`                | texto + fotos; **oculta** sem conteúdo do CMS                     |
+| `finalCta`                 | eyebrow, título, texto                                            |
+
+Regras de normalização: documento ausente → fallback completo; título/texto
+obrigatório vazio → texto aprovado do fallback; listas vazias → itens do
+fallback; imagem vazia → composição visual neutra. Nenhuma data, número ou
+histórico é gerado.
+
+`PrivacyPolicyContent` permanece no código (`privacy-policy.ts`).
 
 ## Adicionar uma nova solução ou segmento
 

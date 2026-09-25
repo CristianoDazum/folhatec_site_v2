@@ -1,4 +1,12 @@
-import type { Article, AuthorityContent, Segment, SiteSettings, Solution } from "@/types/content";
+import type {
+  Article,
+  AuthorityContent,
+  CompanyContent,
+  HomeContent,
+  Segment,
+  SiteSettings,
+  Solution,
+} from "@/types/content";
 
 /**
  * Contrato que qualquer fonte de conteúdo precisa cumprir.
@@ -13,4 +21,6 @@ export interface ContentProvider {
   getArticles(): Promise<Article[]>;
   getArticleBySlug(slug: string): Promise<Article | null>;
   getAuthority(): Promise<AuthorityContent>;
+  getHomeContent(): Promise<HomeContent>;
+  getCompanyContent(): Promise<CompanyContent>;
 }

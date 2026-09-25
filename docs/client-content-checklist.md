@@ -6,6 +6,11 @@ divergências de endereço/contato em fontes públicas).
 
 Onde preencher: CMS (Sanity) ou, sem CMS, `src/data/fallback/*`.
 
+## Textos editoriais → `homePage` / `companyPage`
+
+- [ ] Revisão/aprovação dos textos provisórios da Home (headline, apoio, CTAs, seções)
+- [ ] Revisão/aprovação dos textos da página Empresa
+
 ## Dados institucionais → `siteSettings`
 
 - [ ] Razão social
@@ -47,9 +52,10 @@ Definir a lista **atual** (o folder antigo não vale como portfólio atual):
 - [ ] Prazos praticáveis
 - [ ] Compatibilidade com equipamentos
 
-## Autoridade → provas (desativadas)
+## Autoridade → provas (desativadas em `authoritySettings`)
 
-- [ ] História oficial (`CompanyContent.history`)
+- [ ] História oficial (`companyPage.history`)
+- [ ] Estrutura/operação com fotos reais (`companyPage.structure`)
 - [ ] Ano de fundação / anos de mercado
 - [ ] Certificações vigentes (com comprovação)
 - [ ] Capacidade produtiva divulgável

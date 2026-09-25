@@ -8,7 +8,6 @@
  */
 import { cache } from "react";
 import { SITE_ENV } from "@/lib/config/env";
-import { fallbackCompanyContent, fallbackHomeContent } from "@/data/fallback/pages";
 import { fallbackPrivacyPolicy } from "@/data/fallback/privacy-policy";
 import { isSanityConfigured } from "@/lib/sanity/config";
 import { sanityProvider } from "@/lib/sanity/provider";
@@ -81,15 +80,18 @@ export const getAuthority = cache(
   (): Promise<AuthorityContent> => load("authority", (source) => source.getAuthority()),
 );
 
+export const getHomeContent = cache(
+  (): Promise<HomeContent> => load("homePage", (source) => source.getHomeContent()),
+);
+
+export const getCompanyContent = cache(
+  (): Promise<CompanyContent> => load("companyPage", (source) => source.getCompanyContent()),
+);
+
 /*
- * Textos estruturais de página. Hoje vêm do fallback; ao criar os singletons
- * correspondentes no CMS, basta trocar a implementação aqui — as páginas não
- * mudam.
+ * Política de Privacidade: texto jurídico mantido no código (versionado e
+ * revisado junto com o jurídico), não no CMS.
  */
-export const getHomeContent = cache(async (): Promise<HomeContent> => fallbackHomeContent);
-
-export const getCompanyContent = cache(async (): Promise<CompanyContent> => fallbackCompanyContent);
-
 export const getPrivacyPolicy = cache(
   async (): Promise<PrivacyPolicyContent> => fallbackPrivacyPolicy,
 );

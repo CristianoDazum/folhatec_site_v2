@@ -16,6 +16,8 @@ export const fallbackHomeContent: HomeContent = {
       "Projetos personalizados, conhecimento técnico e compromisso com prazo para atender diferentes necessidades da indústria.",
     highlights: ["Aplicação industrial", "Especificação técnica", "Compromisso com prazo"],
     image: null,
+    primaryCtaLabel: "Solicitar cotação",
+    secondaryCtaLabel: "Falar com um especialista",
   },
   positioning: {
     eyebrow: "Mais do que um produto",

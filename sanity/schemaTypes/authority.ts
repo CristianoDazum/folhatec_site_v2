@@ -2,13 +2,39 @@ import { defineField, defineType } from "sanity";
 import { imageWithAlt } from "./shared";
 
 /**
- * Provas de autoridade — PREPARADAS E DESATIVADAS.
+ * Provas de autoridade — conectadas ao site, DESATIVADAS por padrão.
  *
- * Não estão registradas em `schemaTypes/index.ts` porque não há autorização
- * para logos/depoimentos nem validação de números/certificações.
- * Para ativar: adicionar a `authoritySchemaTypes` em index.ts, implementar a
- * query/normalização em src/lib/sanity e mudar `getAuthority` no provider.
+ * Um bloco só aparece no site quando:
+ * 1. está com "Exibir no site" ativo em `authoritySettings`; e
+ * 2. há itens válidos (logos, depoimentos e cases exigem `authorized`).
+ * Não há autorização para logos/depoimentos nem validação de números e
+ * certificações no lançamento — manter tudo desativado até lá.
  */
+
+const blockSettings = (name: string, title: string) =>
+  defineField({
+    name,
+    title,
+    type: "object",
+    fields: [
+      defineField({ name: "enabled", title: "Exibir no site", type: "boolean", initialValue: false }),
+      defineField({ name: "title", title: "Título do bloco", type: "string" }),
+    ],
+  });
+
+export const authoritySettings = defineType({
+  name: "authoritySettings",
+  title: "Provas de autoridade — exibição",
+  type: "document",
+  fields: [
+    blockSettings("statistics", "Números"),
+    blockSettings("clientLogos", "Logos de clientes"),
+    blockSettings("testimonials", "Depoimentos"),
+    blockSettings("cases", "Cases"),
+    blockSettings("certifications", "Certificações"),
+  ],
+  preview: { prepare: () => ({ title: "Provas de autoridade — exibição" }) },
+});
 
 export const testimonial = defineType({
   name: "testimonial",
@@ -84,4 +110,4 @@ export const statistic = defineType({
   ],
 });
 
-export const authoritySchemaTypes = [testimonial, caseStudy, certification, clientLogo, statistic];
+export const authoritySchemaTypes = [authoritySettings, testimonial, caseStudy, certification, clientLogo, statistic];

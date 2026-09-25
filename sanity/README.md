@@ -20,13 +20,18 @@ npm run deploy              # publica o Studio hospedado (requer login)
 | Tipo           | Uso                                                        |
 | -------------- | ---------------------------------------------------------- |
 | `siteSettings` | Singleton institucional (nome, CNPJ, contatos, WhatsApp…)  |
+| `homePage`     | Singleton: textos e imagens editoriais da Home             |
+| `companyPage`  | Singleton: textos da Empresa (história/estrutura opcionais)|
 | `solution`     | `/solucoes/[slug]`                                         |
 | `segment`      | `/segmentos/[slug]`                                        |
 | `article`      | `/conteudos/[slug]` (Portable Text)                        |
 | `faq`          | Perguntas reutilizáveis referenciadas pelos demais tipos   |
 
-Preparados e **desativados** (`schemaTypes/authority.ts`): `testimonial`,
-`caseStudy`, `certification`, `clientLogo`, `statistic`.
+Provas de autoridade (`schemaTypes/authority.ts`): `authoritySettings`
+(singleton com "Exibir no site" por bloco, padrão desligado), `statistic`,
+`clientLogo`, `testimonial`, `caseStudy` e `certification`. Nada aparece no
+site enquanto o bloco estiver desligado; logos, depoimentos e cases exigem
+também `authorized = true`.
 
 Ver `../docs/content-model.md` para o mapeamento campo a campo.
 
