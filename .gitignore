@@ -1,0 +1,38 @@
+# Dependências
+node_modules/
+
+# Build do Next.js
+.next/
+out/
+build/
+next-env.d.ts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Ambiente (nunca versionar segredos)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+!.env.example
+
+# Deploy
+.vercel/
+
+# Testes
+coverage/
+playwright-report/
+test-results/
+blob-report/
+playwright/.cache/
+
+# Sanity Studio (pacote separado em sanity/)
+sanity/dist/
+sanity/.sanity/
+
+# Logs e sistema
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
