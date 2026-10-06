@@ -24,11 +24,15 @@ export function AuthoritySection({ content }: { content: AuthorityContent }) {
         <SectionHeading id="autoridade" eyebrow="Confiança" title="Referências e resultados" />
 
         {show.statistics ? (
-          <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {statistics.items.map((item) => (
-              <div key={item.label} className="min-w-0 border-t border-line pt-5">
-                <dt className="text-sm text-muted">{item.label}</dt>
-                <dd className="mt-2 font-display text-4xl font-semibold tracking-tight">{item.value}</dd>
+              // Card de métrica: quina assinatura no canto superior direito.
+              <div
+                key={item.label}
+                className="flex min-w-0 flex-col-reverse justify-end gap-2 rounded-tr-brand bg-gradient-to-b from-surface-muted to-background p-8"
+              >
+                <dt className="text-lg leading-snug text-ink">{item.label}</dt>
+                <dd className="font-display text-5xl font-bold tracking-tight text-primary">{item.value}</dd>
               </div>
             ))}
           </dl>

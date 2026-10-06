@@ -44,20 +44,32 @@ src/lib/content/index.ts          (data layer, React cache())
 | `/api/quote`                  | Route Handler (POST)             |
 | `/sitemap.xml`, `/robots.txt` | Gerados a partir do data layer / ambiente |
 
-## Design system
+## Design system (V2 — identidade azul + amarelo)
+
+Baseado no roteiro de design da agência (06/10/2026).
 
 - Tokens em `src/app/globals.css` (`:root`) expostos ao Tailwind via
-  `@theme inline`: `background`, `surface`, `ink`, `muted`, `accent`,
-  `accent-foreground`, `line`, `success`, `error` (+ variações).
-- Utilitários de componente: `container-site`, `section-y`, `eyebrow`,
-  `heading-display`, `heading-page`, `heading-section`, `text-lead`, `bg-grid`.
+  `@theme inline` (Tailwind 4 — não há `tailwind.config.js`):
+  `primary` #232C73 (azul), `accent` #CCCF32 (amarelo), `background` #F5F5F5,
+  `detail` #5D5DA7, `ink` #0F0F0F, além de `surface`, `muted`, `line`,
+  `success`, `error`.
+- Acessibilidade: o amarelo é usado como **fundo** (botões, item ativo do
+  menu, blocos, marcadores) com texto grafite; sobre fundo claro ele não tem
+  contraste para texto (~1,5:1). Texto de destaque em fundo claro usa
+  `accent-strong` (azul); sobre o azul, o amarelo é usado em texto
+  (`accent-on-dark`, ~7,5:1).
+- Geometria: cantos retos em tudo (botões, menu, cards, campos). A "quina
+  assinatura" (raio `brand` = 3rem num único canto) usa `rounded-bl-brand`
+  no bloco amarelo e nas mídias de destaque, e `rounded-tr-brand` nos cards
+  de destaques/métricas.
+- Tipografia: Source Sans 3 (`next/font`), equivalente livre da Myriad Pro
+  pedida no roteiro; trocar por `next/font/local` quando houver licença web.
 - Botões: `buttonClassName(variant, surface)` com `primary | secondary | ghost`
-  e superfícies `light | dark`.
-- `cn()` apenas junta classes completas (nunca fragmentos), evitando classes
-  inválidas como `p-3transition-all`.
-- Visuais industriais neutros (`IndustrialVisual`) em SVG decorativo, sem
-  texto, até a chegada das fotos; `Media` troca automaticamente para
-  `next/image` quando há imagem.
+  e superfícies `light | dark`. `cn()` apenas junta classes completas.
+- Logo oficial em `public/brand/` (SiteSettings); no rodapé azul, sobre placa
+  branca.
+- Imagens: `Media` usa `next/image` (AVIF/WebP) quando há foto e a
+  composição `IndustrialVisual` (SVG) quando não há.
 
 ## Responsividade
 

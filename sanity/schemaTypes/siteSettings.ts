@@ -55,7 +55,8 @@ export const siteSettings = defineType({
       type: "object",
       group: "contact",
       fields: [
-        defineField({ name: "street", title: "Logradouro e número", type: "string" }),
+        defineField({ name: "street", title: "Logradouro, número e complemento", type: "string" }),
+        defineField({ name: "district", title: "Bairro", type: "string" }),
         defineField({ name: "city", title: "Cidade", type: "string" }),
         defineField({ name: "state", title: "UF", type: "string", validation: (rule) => rule.length(2) }),
         defineField({ name: "postalCode", title: "CEP", type: "string" }),

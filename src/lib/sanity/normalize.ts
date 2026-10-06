@@ -115,6 +115,7 @@ function normalizeAddress(raw: RawSiteSettings["address"]): PostalAddress | null
   if (!raw) return null;
   const address: PostalAddress = {
     street: text(raw.street),
+    district: text(raw.district),
     city: text(raw.city),
     state: text(raw.state),
     postalCode: text(raw.postalCode),

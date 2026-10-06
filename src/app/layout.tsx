@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
@@ -12,8 +12,17 @@ import { SITE_NAME } from "@/lib/seo/metadata";
 import { organizationJsonLd } from "@/lib/seo/json-ld";
 import "./globals.css";
 
-const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const heading = Archivo({ subsets: ["latin"], variable: "--font-heading", display: "swap" });
+/*
+ * O roteiro de design pede Myriad Pro (fonte comercial da Adobe). Até haver
+ * licença web, usamos Source Sans 3 — também da Adobe, livre e com desenho
+ * muito próximo. Para trocar: next/font/local com os .woff2 licenciados.
+ */
+const body = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 /** Revalidação ISR do conteúdo do CMS (segundos). */
 export const revalidate = 300;
@@ -41,12 +50,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const settings = await getSiteSettings();
 
   return (
-    <html lang="pt-BR" className={`${body.variable} ${heading.variable}`}>
+    <html lang="pt-BR" className={body.variable}>
       <body className="flex min-h-dvh flex-col">
         <GtmNoScript />
         <a
           href="#conteudo"
-          className="sr-only z-[60] rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[60] rounded-none bg-primary px-5 py-3 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Pular para o conteúdo
         </a>

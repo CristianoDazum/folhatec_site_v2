@@ -63,16 +63,37 @@ test.describe("Metadata por página", () => {
 });
 
 test.describe("JSON-LD", () => {
-  test("Organization na Home sem dados inventados", async ({ page }) => {
+  test("Organization na Home: só dados cadastrados, nada inventado", async ({ page }) => {
     await page.goto("/");
     const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
     const organization = blocks.map((b) => JSON.parse(b) as Record<string, unknown>).find((b) => b["@type"] === "Organization");
     expect(organization).toBeDefined();
     expect(organization?.url).toBe(`${BASE_URL}/`);
     expect(organization?.name).toBe("FolhaTec");
-    // Dados institucionais ainda não validados não podem aparecer.
-    for (const field of ["telephone", "email", "address", "taxID", "legalName"]) {
+    // Contatos e logo cadastrados no SiteSettings (logo com URL absoluta).
+    expect(organization?.email).toBe("folhatec@folhatec.com.br");
+    expect(organization?.telephone).toBe("+55 (47) 3374-5146");
+    expect(organization?.logo).toBe(`${BASE_URL}/brand/folhatec-logo.png`);
+    expect(organization?.address).toMatchObject({
+      "@type": "PostalAddress",
+      addressLocality: "Jaraguá do Sul",
+      addressRegion: "SC",
+      postalCode: "89255-380",
+    });
+    // Dados ainda não validados não podem aparecer.
+    for (const field of ["taxID", "legalName", "sameAs"]) {
       expect(organization?.[field], field).toBeUndefined();
+    }
+  });
+
+  test("URLs do site antigo redirecionam com 301", async ({ request }) => {
+    for (const [from, to] of [
+      ["/sobre", "/empresa"],
+      ["/produtos-e-servicos", "/solucoes"],
+    ] as const) {
+      const response = await request.get(from, { maxRedirects: 0 });
+      expect(response.status(), from).toBe(308);
+      expect(response.headers().location, from).toBe(to);
     }
   });
 

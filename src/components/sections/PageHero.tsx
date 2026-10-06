@@ -41,7 +41,7 @@ export function PageHero({
                 visual={visual ?? "labels"}
                 priority
                 sizes="(min-width: 1024px) 45vw, 100vw"
-                className="aspect-[4/3] rounded-[var(--radius-panel)] border border-line"
+                className="aspect-[4/3] rounded-bl-brand"
               />
             </div>
           ) : null}

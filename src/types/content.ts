@@ -51,7 +51,10 @@ export interface SocialLink {
 }
 
 export interface PostalAddress {
+  /** Logradouro, número e complemento. */
   street: string | null;
+  /** Bairro. */
+  district: string | null;
   city: string | null;
   state: string | null;
   postalCode: string | null;

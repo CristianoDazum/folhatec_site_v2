@@ -4,8 +4,9 @@ import type { ContentImage } from "@/types/content";
 import { cn } from "@/lib/cn";
 
 /**
- * Logo oficial quando cadastrado no CMS/fallback; até lá, wordmark tipográfico
- * com o nome da empresa (sem simular o logotipo oficial).
+ * Logo oficial (SiteSettings/CMS). Sobre fundo escuro, o logo — que tem
+ * texto azul — fica numa placa branca para manter o contraste.
+ * Sem logo cadastrado, exibe o nome da empresa em texto.
  */
 export function Logo({
   name,
@@ -16,26 +17,27 @@ export function Logo({
   logo: ContentImage | null;
   surface?: "light" | "dark";
 }) {
+  const dark = surface === "dark";
   return (
-    <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2.5" aria-label={`${name} — página inicial`}>
+    <Link
+      href="/"
+      className={cn("inline-flex min-w-0 shrink-0 items-center", dark && logo && "bg-surface px-4 py-3")}
+      aria-label={`${name} — página inicial`}
+    >
       {logo ? (
-        <Image src={logo.url} alt="" width={logo.width} height={logo.height} className="h-9 w-auto" priority />
+        <Image
+          src={logo.url}
+          alt=""
+          width={logo.width}
+          height={logo.height}
+          sizes="200px"
+          className="h-9 w-auto sm:h-10"
+          priority={!dark}
+        />
       ) : (
-        <>
-          <span aria-hidden="true" className="flex size-9 flex-col justify-center gap-1 rounded-lg bg-ink px-2">
-            <span className="h-1 w-full rounded-full bg-accent-on-dark" />
-            <span className="h-1 w-3/4 rounded-full bg-white/80" />
-            <span className="h-1 w-1/2 rounded-full bg-white/50" />
-          </span>
-          <span
-            className={cn(
-              "font-display text-xl font-bold tracking-tight",
-              surface === "dark" ? "text-white" : "text-ink",
-            )}
-          >
-            {name}
-          </span>
-        </>
+        <span className={cn("font-display text-2xl font-bold tracking-tight", dark ? "text-white" : "text-primary")}>
+          {name}
+        </span>
       )}
     </Link>
   );

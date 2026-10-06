@@ -42,7 +42,7 @@ export function LabeledGrid({
           ) : (
             <span
               className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-full",
+                "flex size-8 shrink-0 items-center justify-center rounded-none",
                 dark ? "bg-white/10 text-accent-on-dark" : "bg-accent-soft text-accent-strong",
               )}
             >

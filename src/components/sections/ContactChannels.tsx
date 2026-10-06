@@ -85,12 +85,12 @@ export function ContactChannels({
           key={channel.key}
           className={cn(
             "flex min-w-0 gap-3",
-            layout === "cards" && "rounded-2xl border border-line bg-surface p-5",
+            layout === "cards" && "rounded-none border border-line bg-surface p-5",
           )}
         >
           <span
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-full",
+              "flex size-9 shrink-0 items-center justify-center rounded-none",
               dark ? "bg-white/10 text-accent-on-dark" : "bg-accent-soft text-accent-strong",
             )}
           >

@@ -21,7 +21,7 @@ export function SectionHeading({
       {eyebrow ? (
         <p className={cn("eyebrow", surface === "dark" && "text-accent-on-dark")}>{eyebrow}</p>
       ) : null}
-      <h2 id={id} className="heading-section mt-4">
+      <h2 id={id} className={cn("heading-section mt-4", surface === "light" && "text-primary")}>
         {title}
       </h2>
       {description ? (

@@ -5,12 +5,12 @@ import { Media } from "./Media";
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
-    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)] focus-within:border-accent/60">
+    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)] focus-within:border-primary/60">
       <Media
         image={article.image}
         visual="labels"
         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-        className="aspect-[16/10] rounded-[1.1rem]"
+        className="aspect-[16/10] rounded-none"
       />
       <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">

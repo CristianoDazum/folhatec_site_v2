@@ -13,16 +13,23 @@ Onde preencher: CMS (Sanity) ou, sem CMS, `src/data/fallback/*`.
 
 ## Dados institucionais → `siteSettings`
 
+Publicados em 06/10/2026 (enviados pela agência, iguais ao site atual
+folhatec.com.br) — **confirmar com a FolhaTec**:
+
+- [x] E-mail: folhatec@folhatec.com.br
+- [x] Telefone: +55 (47) 3374-5146
+- [x] Endereço: Rua José Brunner, 283, Galpão 06 – Czerniewicz, Jaraguá do Sul – SC, 89255-380
+- [x] Logo oficial (PNG 200×41) — **pedir SVG ou PNG em alta resolução**
+
+Ainda pendentes:
+
 - [ ] Razão social
 - [ ] Nome fantasia (confirmar "FolhaTec")
 - [ ] CNPJ
-- [ ] Endereço oficial (logradouro, cidade, UF, CEP)
-- [ ] Telefone
 - [ ] WhatsApp comercial (e aprovação do botão flutuante)
-- [ ] E-mail comercial
 - [ ] Horário de atendimento
 - [ ] Redes sociais oficiais
-- [ ] Logo oficial em SVG/PNG (versões clara e escura)
+- [ ] Licença web da fonte Myriad Pro (hoje: Source Sans 3, equivalente livre)
 
 ## Portfólio → `solution`
 
@@ -67,7 +74,7 @@ Definir a lista **atual** (o folder antigo não vale como portfólio atual):
 
 ## Conteúdo
 
-- [ ] Fotos reais: fachada, produção, equipamentos, bobinas, etiquetas,
+- [ ] Fotos reais (hoje há 3 fotos provisórias de banco gratuito — `docs/image-credits.md`): fachada, produção, equipamentos, bobinas, etiquetas,
       materiais, estoque, equipe técnica, aplicações, produtos acabados
 - [ ] Vídeos (tutoriais, institucional — sem autoplay pesado)
 - [ ] Artigos. Pautas sugeridas no briefing:

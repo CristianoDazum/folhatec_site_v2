@@ -1,4 +1,33 @@
-import type { CompanyContent, HomeContent } from "@/types/content";
+import type { CompanyContent, ContentImage, HomeContent } from "@/types/content";
+
+/*
+ * Fotos de banco gratuito (Unsplash License: uso comercial permitido, sem
+ * atribuição obrigatória) — créditos em docs/image-credits.md. Substituir por
+ * fotos reais da FolhaTec assim que houver produção fotográfica.
+ */
+const heroImage: ContentImage = {
+  url: "/images/hero-etiquetas-maquina.jpg",
+  alt: "Etiquetas saindo de uma máquina em ambiente industrial",
+  width: 1400,
+  height: 2100,
+  blurDataUrl: null,
+};
+
+const applicationsImage: ContentImage = {
+  url: "/images/aplicacoes-logistica.jpg",
+  alt: "Centro logístico com esteiras transportando caixas",
+  width: 2400,
+  height: 1348,
+  blurDataUrl: null,
+};
+
+const companyImage: ContentImage = {
+  url: "/images/empresa-industria.jpg",
+  alt: "Linha de produção industrial",
+  width: 2000,
+  height: 1334,
+  blurDataUrl: null,
+};
 
 /**
  * Textos estruturais da Home e da Empresa.
@@ -15,7 +44,7 @@ export const fallbackHomeContent: HomeContent = {
     description:
       "Projetos personalizados, conhecimento técnico e compromisso com prazo para atender diferentes necessidades da indústria.",
     highlights: ["Aplicação industrial", "Especificação técnica", "Compromisso com prazo"],
-    image: null,
+    image: heroImage,
     primaryCtaLabel: "Solicitar cotação",
     secondaryCtaLabel: "Falar com um especialista",
   },
@@ -53,7 +82,7 @@ export const fallbackHomeContent: HomeContent = {
       { label: "Ambientes agressivos", description: null },
       { label: "Aplicação interna ou externa", description: null },
     ],
-    image: null,
+    image: applicationsImage,
   },
   segmentsIntro: {
     eyebrow: "Segmentos",
@@ -107,7 +136,7 @@ export const fallbackCompanyContent: CompanyContent = {
     title: "Parceira técnica para a identificação da sua operação.",
     description:
       "A FolhaTec atua com soluções de identificação para operações industriais, unindo conhecimento técnico, atendimento próximo e compromisso com qualidade e prazo.",
-    image: null,
+    image: companyImage,
   },
   // História oficial pendente de envio pela FolhaTec — seção oculta.
   history: null,

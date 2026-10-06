@@ -131,7 +131,7 @@ export default async function SolutionPage({ params }: Props) {
 
       {/* 6. Diferencial de atendimento */}
       {solution.differentiators.length ? (
-        <section aria-labelledby="diferencial" className="section-y relative isolate overflow-clip bg-ink text-white">
+        <section aria-labelledby="diferencial" className="section-y relative isolate overflow-clip bg-primary text-white">
           <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10 opacity-50" />
           <div className="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionHeading

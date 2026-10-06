@@ -95,7 +95,7 @@ export default async function SegmentPage({ params }: Props) {
                 <h3 className="text-lg font-semibold">Aplicações frequentes</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {segment.applications.map((item) => (
-                    <li key={item.label} className="rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium">
+                    <li key={item.label} className="rounded-none border border-line bg-surface px-4 py-2 text-sm font-medium">
                       {item.label}
                     </li>
                   ))}
@@ -122,7 +122,7 @@ export default async function SegmentPage({ params }: Props) {
 
       {/* 5. Diferenciais */}
       {segment.differentiators.length ? (
-        <section aria-labelledby="diferencial" className="section-y relative isolate overflow-clip bg-ink text-white">
+        <section aria-labelledby="diferencial" className="section-y relative isolate overflow-clip bg-primary text-white">
           <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10 opacity-50" />
           <div className="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionHeading

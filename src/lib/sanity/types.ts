@@ -43,6 +43,7 @@ export interface RawSiteSettings {
   email?: string | null;
   address?: {
     street?: string | null;
+    district?: string | null;
     city?: string | null;
     state?: string | null;
     postalCode?: string | null;

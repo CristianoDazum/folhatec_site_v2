@@ -29,8 +29,8 @@ function DesktopLink({ href, label, pathname }: { href: string; label: string; p
       href={href}
       aria-current={pathname === href ? "page" : undefined}
       className={cn(
-        "relative py-2 text-sm font-semibold transition-colors hover:text-ink",
-        active ? "text-ink after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-accent" : "text-muted",
+        "px-3 py-2 text-[0.95rem] font-semibold transition-colors",
+        active ? "bg-accent text-accent-foreground" : "text-ink hover:bg-surface-muted",
       )}
     >
       {label}
@@ -138,7 +138,7 @@ export function HeaderNav({
   return (
     <>
       {/* Desktop */}
-      <nav aria-label="Navegação principal" className="hidden items-center gap-7 lg:flex">
+      <nav aria-label="Navegação principal" className="hidden items-center gap-1 lg:flex xl:gap-2">
         <DesktopLink href="/empresa" label="Empresa" pathname={pathname} />
 
         <div
@@ -171,10 +171,10 @@ export function HeaderNav({
               else openDropdown();
             }}
             className={cn(
-              "relative flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors hover:text-ink",
+              "flex items-center gap-1.5 px-3 py-2 text-[0.95rem] font-semibold transition-colors",
               isSection(pathname, "/solucoes")
-                ? "text-ink after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-accent"
-                : "text-muted",
+                ? "bg-accent text-accent-foreground"
+                : "text-ink hover:bg-surface-muted",
             )}
           >
             Soluções
@@ -183,7 +183,7 @@ export function HeaderNav({
 
           {dropdownOpen ? (
             <div id="menu-solucoes" className="absolute left-1/2 top-full w-[22rem] -translate-x-1/2 pt-3">
-              <ul className="rounded-2xl border border-line bg-surface p-2 shadow-[var(--shadow-pop)]">
+              <ul className="rounded-none border border-line bg-surface p-2 shadow-[var(--shadow-pop)]">
                 {solutions.map((solution) => (
                   <li key={solution.slug}>
                     <Link
@@ -191,7 +191,7 @@ export function HeaderNav({
                       href={`/solucoes/${solution.slug}`}
                       aria-current={pathname === `/solucoes/${solution.slug}` ? "page" : undefined}
                       onClick={closeDropdown}
-                      className="block rounded-xl px-4 py-3 transition hover:bg-background focus-visible:bg-background"
+                      className="block rounded-none px-4 py-3 transition hover:bg-background focus-visible:bg-background"
                     >
                       <span className="block text-sm font-semibold text-ink">{solution.title}</span>
                       <span className="mt-1 block text-xs leading-5 text-muted">{solution.shortDescription}</span>
@@ -203,7 +203,7 @@ export function HeaderNav({
                     data-dropdown-item
                     href="/solucoes"
                     onClick={closeDropdown}
-                    className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-semibold text-accent-strong transition hover:bg-background focus-visible:bg-background"
+                    className="flex items-center justify-between rounded-none px-4 py-3 text-sm font-semibold text-accent-strong transition hover:bg-background focus-visible:bg-background"
                   >
                     Ver todas as soluções
                     <Icon name="arrow" size={16} />
@@ -222,7 +222,7 @@ export function HeaderNav({
           href="/solicitar-cotacao"
           event="click_solicitar_cotacao"
           params={{ cta_location: "header" }}
-          className={buttonClassName("primary", "light", "min-h-11 px-5")}
+          className={buttonClassName("primary", "light", "ml-3 min-h-11 px-5")}
         >
           Solicitar cotação
         </TrackedLink>
@@ -248,7 +248,7 @@ export function HeaderNav({
           aria-controls="menu-mobile"
           aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
           onClick={() => setMobileOpenAt(mobileOpen ? null : pathname)}
-          className="flex size-11 items-center justify-center rounded-xl border border-line bg-surface text-ink transition hover:border-accent"
+          className="flex size-11 items-center justify-center rounded-none border border-line bg-surface text-ink transition hover:border-primary"
         >
           <Icon name={mobileOpen ? "close" : "menu"} />
         </button>

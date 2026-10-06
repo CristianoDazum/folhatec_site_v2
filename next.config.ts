@@ -22,6 +22,17 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  /*
+   * Redirects 301 das URLs do site atual (folhatec.com.br, levantadas em
+   * 06/10/2026). /contato mantém o mesmo caminho. Completar após o
+   * inventário do Search Console (docs/go-live-checklist.md).
+   */
+  async redirects() {
+    return [
+      { source: "/sobre", destination: "/empresa", permanent: true },
+      { source: "/produtos-e-servicos", destination: "/solucoes", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

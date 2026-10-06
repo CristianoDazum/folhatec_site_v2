@@ -15,7 +15,7 @@ type Status = "idle" | "submitting" | "success" | "stub" | "error";
 const FIELD_ORDER: QuoteField[] = ["name", "company", "phone", "email", "message", "consent"];
 
 const inputClass =
-  "block w-full min-w-0 rounded-[var(--radius-field)] border bg-surface px-4 py-3 text-base text-ink transition placeholder:text-muted/70 focus:outline-none focus-visible:border-accent focus-visible:ring-4 focus-visible:ring-accent/15";
+  "block w-full min-w-0 rounded-[var(--radius-field)] border bg-surface px-4 py-3 text-base text-ink transition placeholder:text-muted/70 focus:outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/15";
 
 function fieldClass(hasError: boolean) {
   return cn(inputClass, hasError ? "border-error" : "border-line-strong");
@@ -136,7 +136,7 @@ export function QuoteForm({
         role="status"
         className="rounded-[var(--radius-panel)] border border-line bg-surface p-8 sm:p-10"
       >
-        <span className="flex size-12 items-center justify-center rounded-full bg-accent-soft text-accent-strong">
+        <span className="flex size-12 items-center justify-center rounded-none bg-accent-soft text-accent-strong">
           <Icon name="check" size={22} />
         </span>
         {status === "success" ? (
@@ -190,13 +190,13 @@ export function QuoteForm({
       className="grid gap-6 rounded-[var(--radius-panel)] border border-line bg-surface p-6 sm:p-8"
     >
       {contextItems.length ? (
-        <div className="rounded-2xl bg-accent-soft p-4" data-testid="quote-context">
+        <div className="rounded-none bg-accent-soft p-4" data-testid="quote-context">
           <p className="text-sm font-semibold text-ink">Sua solicitação é sobre:</p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {contextItems.map((entry) => (
               <li
                 key={entry.key}
-                className="inline-flex min-w-0 items-center gap-2 rounded-full border border-accent/30 bg-surface py-1 pl-3 pr-1 text-sm"
+                className="inline-flex min-w-0 items-center gap-2 rounded-none border border-primary/30 bg-surface py-1 pl-3 pr-1 text-sm"
               >
                 <span className="min-w-0 truncate">
                   <span className="text-muted">{entry.label}: </span>
@@ -205,7 +205,7 @@ export function QuoteForm({
                 <button
                   type="button"
                   onClick={() => (entry.key === "solution" ? setSolution(null) : setSegment(null))}
-                  className="flex size-7 shrink-0 items-center justify-center rounded-full text-muted transition hover:bg-accent-soft hover:text-ink"
+                  className="flex size-7 shrink-0 items-center justify-center rounded-none text-muted transition hover:bg-accent-soft hover:text-ink"
                   aria-label={`Remover ${entry.label.toLowerCase()} ${entry.item.title}`}
                 >
                   <Icon name="close" size={14} />
@@ -333,7 +333,7 @@ export function QuoteForm({
             required
             aria-invalid={Boolean(errors.consent)}
             aria-describedby={describedBy("consent")}
-            className="mt-0.5 size-5 shrink-0 accent-[var(--accent)]"
+            className="mt-0.5 size-5 shrink-0 accent-[var(--primary)]"
           />
           <label htmlFor="quote-consent" className="text-sm leading-6 text-muted">
             Concordo com o tratamento dos meus dados para retorno desta solicitação, conforme a{" "}
@@ -347,7 +347,7 @@ export function QuoteForm({
       </div>
 
       {status === "error" ? (
-        <div role="alert" className="rounded-2xl border border-error/30 bg-error-soft p-4 text-sm text-error">
+        <div role="alert" className="rounded-none border border-error/30 bg-error-soft p-4 text-sm text-error">
           Não foi possível enviar sua solicitação agora. Tente novamente em instantes.
         </div>
       ) : null}

@@ -14,7 +14,7 @@ export async function SiteFooter() {
   const linkClass = "text-white/75 transition-colors hover:text-white";
 
   return (
-    <footer className="bg-ink text-white">
+    <footer className="bg-primary text-white">
       <div className="container-site grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr] lg:py-20">
         <div className="min-w-0">
           <Logo name={settings.name} logo={settings.logo} surface="dark" />

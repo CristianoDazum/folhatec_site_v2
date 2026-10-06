@@ -1,42 +1,55 @@
 @import "tailwindcss";
 
 /*
- * Design tokens da FolhaTec.
+ * Design tokens da FolhaTec — Design System V2 (identidade azul + amarelo).
  * Cores só são definidas aqui; componentes usam as classes geradas pelo
- * @theme (ex.: bg-surface, text-ink, border-line, text-accent).
+ * @theme (ex.: bg-primary, bg-accent, text-ink, border-line).
+ *
+ * Regras de uso (acessibilidade):
+ * - O amarelo (--accent) é usado como FUNDO (botões, item ativo, blocos,
+ *   barras) com texto grafite; sobre fundo claro ele não tem contraste para
+ *   texto. Texto de destaque em fundo claro usa --accent-strong (azul).
+ * - Sobre o azul (--primary), o amarelo pode ser usado em texto
+ *   (--accent-on-dark, contraste ~7,5:1).
  */
 :root {
-  --background: #f4f7f5;
+  --primary: #232c73; /* azul escuro institucional */
+  --primary-strong: #1a215a;
+  --accent: #cccf32; /* amarelo-esverdeado: destaques e CTAs */
+  --accent-hover: #babd25;
+  --accent-soft: #f1f2c7;
+  --accent-foreground: #0f0f0f;
+  /* Texto de destaque sobre fundo claro (o amarelo não tem contraste). */
+  --accent-strong: #232c73;
+  --accent-on-dark: #cccf32;
+  --detail: #5d5da7; /* azul suave: detalhes e textos secundários */
+  --background: #f5f5f5;
   --surface: #ffffff;
-  --surface-muted: #edf2ef;
-  --ink: #10202b;
-  --ink-soft: #1b3240;
-  --muted: #56666f;
-  --accent: #0b7560;
-  --accent-strong: #075a49;
-  --accent-soft: #e3f1ec;
-  /* Acento com contraste AA sobre fundos escuros (--ink). */
-  --accent-on-dark: #5cc7a7;
-  --accent-foreground: #ffffff;
-  --line: #d9e3de;
-  --line-strong: #bccac3;
-  --success: #0b7560;
+  --surface-muted: #ebebeb;
+  --ink: #0f0f0f; /* grafite: texto principal */
+  --muted: #4b4b55;
+  --line: #dcdce0;
+  --line-strong: #9a9aa6;
+  --success: #2e7d32;
   --error: #b42318;
   --error-soft: #fdecea;
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-detail: var(--detail);
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-on-dark: var(--accent-on-dark);
-  --color-accent-foreground: var(--accent-foreground);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
   --color-success: var(--success);
@@ -44,15 +57,20 @@
   --color-error-soft: var(--error-soft);
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-heading), var(--font-body), ui-sans-serif,
-    system-ui, sans-serif;
+  --font-display: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 
-  --radius-card: 1.5rem;
-  --radius-panel: 2rem;
-  --radius-field: 0.875rem;
+  /*
+   * Geometria: cantos retos em tudo. A "quina assinatura" (um único canto
+   * arredondado) usa rounded-bl-brand (bloco amarelo / mídia de destaque)
+   * ou rounded-tr-brand (cards de métricas e destaques).
+   */
+  --radius-brand: 3rem;
+  --radius-card: 0px;
+  --radius-panel: 0px;
+  --radius-field: 0px;
 
-  --shadow-card: 0 18px 50px rgb(16 32 43 / 0.08);
-  --shadow-pop: 0 20px 60px rgb(16 32 43 / 0.12);
+  --shadow-card: 0 18px 50px rgb(35 44 115 / 0.1);
+  --shadow-pop: 0 20px 60px rgb(35 44 115 / 0.16);
 }
 
 @layer base {
@@ -70,11 +88,11 @@
   }
 
   ::selection {
-    background: rgb(11 117 96 / 0.18);
+    background: rgb(204 207 50 / 0.45);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--primary);
     outline-offset: 3px;
   }
 
@@ -115,7 +133,7 @@
   }
 
   .eyebrow {
-    color: var(--accent);
+    color: var(--detail);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.16em;
@@ -125,22 +143,22 @@
 
   .heading-display {
     font-size: clamp(2.25rem, 4.4vw + 0.5rem, 4.4rem);
-    font-weight: 650;
-    letter-spacing: -0.045em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     line-height: 1;
   }
 
   .heading-page {
     font-size: clamp(2.1rem, 5vw, 3.9rem);
-    font-weight: 650;
-    letter-spacing: -0.04em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     line-height: 1.04;
   }
 
   .heading-section {
     font-size: clamp(1.75rem, 3.4vw, 2.6rem);
-    font-weight: 650;
-    letter-spacing: -0.035em;
+    font-weight: 700;
+    letter-spacing: -0.015em;
     line-height: 1.1;
   }
 
@@ -159,8 +177,8 @@
   /* Grade técnica sutil usada nas áreas visuais industriais. */
   .bg-grid {
     background-image:
-      linear-gradient(rgb(16 32 43 / 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(16 32 43 / 0.06) 1px, transparent 1px);
+      linear-gradient(rgb(35 44 115 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(35 44 115 / 0.06) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
@@ -184,7 +202,7 @@
   .prose-content h2 {
     margin-top: 2.5rem;
     font-size: 1.6rem;
-    font-weight: 650;
+    font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.2;
   }
@@ -192,7 +210,7 @@
   .prose-content h3 {
     margin-top: 2rem;
     font-size: 1.25rem;
-    font-weight: 650;
+    font-weight: 700;
     line-height: 1.3;
   }
 

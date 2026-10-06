@@ -6,12 +6,12 @@ import { Media } from "./Media";
 export function SegmentCard({ segment, headingLevel = "h3" }: { segment: Segment; headingLevel?: "h2" | "h3" }) {
   const Heading = headingLevel;
   return (
-    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--shadow-card)] focus-within:border-accent/60">
+    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card)] focus-within:border-primary/60">
       <Media
         image={segment.image}
         visual={segment.visual}
         sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-        className="aspect-[4/3] rounded-[1.1rem]"
+        className="aspect-[4/3] rounded-none"
       />
       <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
         <Heading className="text-xl font-semibold tracking-tight">

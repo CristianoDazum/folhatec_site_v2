@@ -26,14 +26,14 @@ export function organizationJsonLd(settings: SiteSettings): JsonLdObject {
     description: settings.description,
     legalName: settings.legalName ?? undefined,
     taxID: settings.cnpj ?? undefined,
-    logo: settings.logo?.url,
+    logo: settings.logo ? absoluteUrl(settings.logo.url) : undefined,
     email: contact.email ?? undefined,
     telephone: contact.phone ?? undefined,
     address:
       hasAddress && address
         ? {
             "@type": "PostalAddress",
-            streetAddress: address.street ?? undefined,
+            streetAddress: [address.street, address.district].filter(Boolean).join(" – ") || undefined,
             addressLocality: address.city ?? undefined,
             addressRegion: address.state ?? undefined,
             postalCode: address.postalCode ?? undefined,
@@ -68,7 +68,7 @@ export function articleJsonLd(article: Article, settings: SiteSettings): JsonLdO
     dateModified: article.updatedAt ?? article.publishedAt,
     mainEntityOfPage: url,
     url,
-    image: article.image?.url,
+    image: article.image ? absoluteUrl(article.image.url) : undefined,
     author: article.author
       ? { "@type": "Person", name: article.author }
       : { "@type": "Organization", name: settings.name, url: absoluteUrl("/") },

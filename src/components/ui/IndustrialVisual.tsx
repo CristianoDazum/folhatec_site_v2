@@ -9,7 +9,7 @@ import { cn } from "@/lib/cn";
  * absoluto vazando para fora do container.
  */
 
-const INK = "var(--ink)";
+const INK = "var(--primary)";
 const ACCENT = "var(--accent)";
 const LINE = "var(--line-strong)";
 const SURFACE = "var(--surface)";

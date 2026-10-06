@@ -29,7 +29,7 @@ export function buildEmailHref(email: string | null): string | null {
 export function formatAddress(address: PostalAddress | null): string | null {
   if (!address) return null;
   const cityState = [address.city, address.state].filter(Boolean).join(" – ");
-  const parts = [address.street, cityState, address.postalCode].filter(Boolean);
+  const parts = [address.street, address.district, cityState, address.postalCode].filter(Boolean);
   return parts.length ? parts.join(", ") : null;
 }
 

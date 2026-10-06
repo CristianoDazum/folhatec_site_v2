@@ -12,7 +12,7 @@ const components: PortableTextComponents = {
           width={value.width}
           height={value.height}
           sizes="(min-width: 768px) 720px, 100vw"
-          className="h-auto w-full rounded-2xl"
+          className="h-auto w-full rounded-none"
         />
       </figure>
     ),

@@ -20,12 +20,12 @@ export function SolutionCard({
 }) {
   const Heading = headingLevel;
   return (
-    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--shadow-card)] focus-within:border-accent/60">
+    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card)] focus-within:border-primary/60">
       <Media
         image={solution.image}
         visual={solution.visual}
         sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-        className="aspect-[4/3] rounded-[1.1rem]"
+        className="aspect-[4/3] rounded-none"
       />
       <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
         {solution.eyebrow ? <p className="eyebrow">{solution.eyebrow}</p> : null}
@@ -45,7 +45,7 @@ export function SolutionCard({
               href={buildQuoteHref({ solution: solution.slug })}
               event="click_solicitar_cotacao"
               params={{ cta_location: "solution_card", solution: solution.slug }}
-              className="relative z-10 rounded-full border border-line px-4 py-2 text-xs font-semibold text-ink transition hover:border-accent hover:text-accent-strong"
+              className="relative z-10 rounded-none border border-line px-4 py-2 text-xs font-semibold text-ink transition hover:border-primary hover:text-accent-strong"
               ariaLabel={`Solicitar cotação de ${solution.title}`}
             >
               Solicitar cotação
