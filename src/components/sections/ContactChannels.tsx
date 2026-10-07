@@ -29,7 +29,7 @@ export function ContactChannels({
   const address = formatAddress(contact.address);
 
   const channels: Array<{ key: string; icon: IconName; label: string; value: string; node?: ReactNode }> = [];
-  const linkClass = "break-words font-semibold hover:text-accent-strong";
+  const linkClass = "link-underline break-words font-semibold hover:text-accent-strong";
 
   if (whatsappUrl && contact.whatsapp) {
     channels.push({

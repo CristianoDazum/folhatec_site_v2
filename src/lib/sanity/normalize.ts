@@ -151,6 +151,7 @@ export function normalizeSiteSettings(raw: RawSiteSettings | null, fallback: Sit
     tagline: text(raw.tagline),
     description: text(raw.description) ?? fallback.description,
     logo: normalizeImage(raw.logo, text(raw.name) ?? fallback.name),
+    logoOnDark: normalizeImage(raw.logoOnDark, text(raw.name) ?? fallback.name),
     contact: {
       phone: text(raw.phone),
       whatsapp: normalizeWhatsApp(raw.whatsapp),

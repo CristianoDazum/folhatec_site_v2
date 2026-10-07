@@ -38,6 +38,7 @@ export interface RawSiteSettings {
   tagline?: string | null;
   description?: string | null;
   logo?: RawImage | null;
+  logoOnDark?: RawImage | null;
   phone?: string | null;
   whatsapp?: string | null;
   email?: string | null;

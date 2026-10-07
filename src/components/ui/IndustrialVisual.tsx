@@ -151,7 +151,7 @@ export function IndustrialVisual({
       <svg
         viewBox="0 0 480 360"
         preserveAspectRatio="xMidYMid meet"
-        className="relative h-full w-full"
+        className="relative h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         focusable="false"
       >
         <circle cx={420} cy={40} r={90} fill={ACCENT} opacity={0.06} />

@@ -120,7 +120,7 @@ export default async function SolutionPage({ params }: Props) {
               eyebrow="Segmentos"
               title="Aplicações por segmento."
             />
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="reveal-stagger mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {relatedSegments.map((segment) => (
                 <SegmentCard key={segment.slug} segment={segment} />
               ))}

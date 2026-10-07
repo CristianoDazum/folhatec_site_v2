@@ -46,7 +46,7 @@ export function SpecialistCta({
       params={{ cta_location: location }}
       className={buttonClassName(variant, surface, className)}
     >
-      <Icon name="message" size={17} />
+      <Icon name="message" size={17} className="transition-transform duration-200 group-hover/button:-rotate-6 group-hover/button:scale-110" />
       {children}
     </TrackedLink>
   );

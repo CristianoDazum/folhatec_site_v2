@@ -63,6 +63,19 @@ export function HeaderNav({
   const closeDropdown = () => setDropdownOpenAt(null);
   const closeMobile = () => setMobileOpenAt(null);
 
+  /* ---------------- Sombra do header ao rolar ---------------- */
+
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!header) return;
+    const update = () => {
+      header.dataset.scrolled = String(window.scrollY > 8);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   /* ---------------- Dropdown (desktop) ---------------- */
 
   useEffect(() => {
@@ -183,6 +196,7 @@ export function HeaderNav({
 
           {dropdownOpen ? (
             <div id="menu-solucoes" className="absolute left-1/2 top-full w-[22rem] -translate-x-1/2 pt-3">
+              <div className="menu-enter">
               <ul className="rounded-none border border-line bg-surface p-2 shadow-[var(--shadow-pop)]">
                 {solutions.map((solution) => (
                   <li key={solution.slug}>
@@ -191,9 +205,9 @@ export function HeaderNav({
                       href={`/solucoes/${solution.slug}`}
                       aria-current={pathname === `/solucoes/${solution.slug}` ? "page" : undefined}
                       onClick={closeDropdown}
-                      className="block rounded-none px-4 py-3 transition hover:bg-background focus-visible:bg-background"
+                      className="group/item block rounded-none border-l-2 border-transparent px-4 py-3 transition hover:border-accent hover:bg-background focus-visible:border-accent focus-visible:bg-background"
                     >
-                      <span className="block text-sm font-semibold text-ink">{solution.title}</span>
+                      <span className="block text-sm font-semibold text-ink transition-transform duration-200 group-hover/item:translate-x-1">{solution.title}</span>
                       <span className="mt-1 block text-xs leading-5 text-muted">{solution.shortDescription}</span>
                     </Link>
                   </li>
@@ -210,6 +224,7 @@ export function HeaderNav({
                   </Link>
                 </li>
               </ul>
+              </div>
             </div>
           ) : null}
         </div>
@@ -259,7 +274,7 @@ export function HeaderNav({
           hidden={!mobileOpen}
           className="fixed inset-x-0 bottom-0 top-[4.5rem] z-40 overflow-y-auto border-t border-line bg-surface"
         >
-          <nav aria-label="Navegação mobile" className="container-site flex flex-col py-4">
+          <nav aria-label="Navegação mobile" className="menu-enter container-site flex flex-col py-4">
             <ul>
               <li>
                 <MobileLink href="/empresa" pathname={pathname} onNavigate={closeMobile}>

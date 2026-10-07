@@ -37,7 +37,7 @@ export default async function SegmentsPage() {
           <h2 id="lista-segmentos" className="sr-only">
             Segmentos atendidos
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="reveal-stagger grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {segments.map((segment) => (
               <SegmentCard key={segment.slug} segment={segment} />
             ))}

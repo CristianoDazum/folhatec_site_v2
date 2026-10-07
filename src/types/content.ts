@@ -78,6 +78,8 @@ export interface SiteSettings {
   tagline: string | null;
   description: string;
   logo: ContentImage | null;
+  /** Versão do logo para fundos escuros (ex.: rodapé azul). */
+  logoOnDark: ContentImage | null;
   contact: ContactSettings;
   socialLinks: SocialLink[];
   /** Botão flutuante de WhatsApp (só aparece se o número existir). */

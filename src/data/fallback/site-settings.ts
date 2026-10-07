@@ -17,11 +17,19 @@ export const fallbackSiteSettings: SiteSettings = {
   tagline: "Soluções de identificação para operações industriais",
   description:
     "Soluções em etiquetas e identificação para operações industriais, com conhecimento técnico, atendimento consultivo e compromisso com prazo.",
+  // Logos extraídos dos arquivos da agência (Elementos PNG, 07/10/2026).
   logo: {
     url: "/brand/folhatec-logo.png",
     alt: "FolhaTec — Etiquetas de qualidade. Parceria de sucesso.",
-    width: 200,
-    height: 41,
+    width: 1000,
+    height: 218,
+    blurDataUrl: null,
+  },
+  logoOnDark: {
+    url: "/brand/folhatec-logo-branco.png",
+    alt: "FolhaTec",
+    width: 406,
+    height: 61,
     blurDataUrl: null,
   },
   contact: {

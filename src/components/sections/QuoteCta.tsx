@@ -30,7 +30,7 @@ export function QuoteCta({
       className={buttonClassName(variant, surface, className)}
     >
       {children}
-      <Icon name="arrow" size={17} />
+      <Icon name="arrow" size={17} className="transition-transform duration-200 group-hover/button:translate-x-1" />
     </TrackedLink>
   );
 }

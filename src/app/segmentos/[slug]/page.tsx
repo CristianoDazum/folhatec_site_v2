@@ -111,7 +111,7 @@ export default async function SegmentPage({ params }: Props) {
         <section aria-labelledby="solucoes-relacionadas" className="section-y bg-surface">
           <div className="container-site">
             <SectionHeading id="solucoes-relacionadas" eyebrow="Soluções" title="Soluções para este segmento." />
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="reveal-stagger mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {relatedSolutions.map((solution) => (
                 <SolutionCard key={solution.slug} solution={solution} />
               ))}

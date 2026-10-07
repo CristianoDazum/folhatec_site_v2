@@ -29,7 +29,9 @@ export function buildEmailHref(email: string | null): string | null {
 export function formatAddress(address: PostalAddress | null): string | null {
   if (!address) return null;
   const cityState = [address.city, address.state].filter(Boolean).join(" – ");
-  const parts = [address.street, address.district, cityState, address.postalCode].filter(Boolean);
+  // Hífen inseparável (U+2011) evita quebrar o CEP no meio ("89255-" / "380").
+  const postalCode = address.postalCode?.replace("-", "\u2011") ?? null;
+  const parts = [address.street, address.district, cityState, postalCode].filter(Boolean);
   return parts.length ? parts.join(", ") : null;
 }
 

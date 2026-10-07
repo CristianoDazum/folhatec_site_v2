@@ -38,6 +38,7 @@ export const siteSettings = defineType({
       validation: (rule) => rule.max(200),
     }),
     { ...imageWithAlt("logo", "Logo"), group: "company" },
+    { ...imageWithAlt("logoOnDark", "Logo para fundo escuro (rodapé)"), group: "company" },
     defineField({ name: "phone", title: "Telefone (exibição)", type: "string", group: "contact" }),
     defineField({
       name: "whatsapp",

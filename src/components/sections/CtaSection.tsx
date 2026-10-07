@@ -21,7 +21,7 @@ export function CtaSection({
   const headingId = `cta-${location}`;
   return (
     <section aria-labelledby={headingId} className="container-site py-16 sm:py-20 lg:py-24">
-      <div className="relative isolate overflow-clip rounded-[var(--radius-panel)] bg-primary px-6 py-12 text-white sm:px-12 sm:py-14 lg:px-16 lg:py-16">
+      <div data-reveal className="relative isolate overflow-clip rounded-[var(--radius-panel)] bg-primary px-6 py-12 text-white sm:px-12 sm:py-14 lg:px-16 lg:py-16">
         <div aria-hidden="true" className="bg-grid-dark absolute inset-0 -z-10 opacity-60" />
         {/* Bloco amarelo da identidade: quina assinatura no canto inferior esquerdo. */}
         <div aria-hidden="true" className="absolute right-0 top-0 -z-10 h-20 w-28 rounded-bl-brand bg-accent sm:h-28 sm:w-44" />

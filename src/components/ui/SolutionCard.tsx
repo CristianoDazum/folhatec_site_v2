@@ -20,7 +20,8 @@ export function SolutionCard({
 }) {
   const Heading = headingLevel;
   return (
-    <article className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card)] focus-within:border-primary/60">
+    <article data-reveal className="group relative flex min-w-0 flex-col rounded-[var(--radius-card)] border border-line bg-surface p-3 transition duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card)] focus-within:border-primary/60">
+      <span aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-10 h-1 origin-left scale-x-0 bg-accent transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-within:scale-x-100" />
       <Media
         image={solution.image}
         visual={solution.visual}

@@ -37,7 +37,7 @@ export default async function ArticlesPage() {
       <section aria-label="Artigos" className="section-y">
         <div className="container-site">
           {articles.length ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="reveal-stagger grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {articles.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}

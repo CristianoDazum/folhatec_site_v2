@@ -17,7 +17,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <div className={cn("max-w-3xl min-w-0", className)}>
+    <div data-reveal className={cn("max-w-3xl min-w-0", className)}>
       {eyebrow ? (
         <p className={cn("eyebrow", surface === "dark" && "text-accent-on-dark")}>{eyebrow}</p>
       ) : null}

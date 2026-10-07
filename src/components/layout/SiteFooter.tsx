@@ -11,13 +11,13 @@ export async function SiteFooter() {
     .filter(Boolean)
     .join(" · ");
 
-  const linkClass = "text-white/75 transition-colors hover:text-white";
+  const linkClass = "link-underline text-white/75 transition-colors hover:text-white";
 
   return (
     <footer className="bg-primary text-white">
       <div className="container-site grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr] lg:py-20">
         <div className="min-w-0">
-          <Logo name={settings.name} logo={settings.logo} surface="dark" />
+          <Logo name={settings.name} logo={settings.logo} logoOnDark={settings.logoOnDark} surface="dark" />
           <p className="mt-5 max-w-sm text-sm leading-6 text-white/75">{settings.description}</p>
         </div>
 

@@ -259,6 +259,97 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Movimento e microinterações                                         */
+/* ------------------------------------------------------------------ */
+/*
+ * Princípios: só opacity/transform (sem layout shift), durações curtas,
+ * easing suave. Efeitos de hover ficam dentro de @media (hover: hover)
+ * — o mesmo critério do `hover:` do Tailwind 4 — para não "grudar" em
+ * telas touch. Tudo é desligado com prefers-reduced-motion.
+ */
+
+:root {
+  --ease-out-soft: cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+/*
+ * Entrada no scroll. O ScrollReveal (client) adiciona .js-reveal ao <html>
+ * só depois de marcar como revelado o que já está na tela — assim nada
+ * pisca e, sem JavaScript, todo o conteúdo fica visível.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s var(--ease-out-soft),
+      transform 0.6s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js-reveal [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Escalonamento automático dos itens de uma grade/lista. */
+  .reveal-stagger > :nth-child(2) { --reveal-delay: 70ms; }
+  .reveal-stagger > :nth-child(3) { --reveal-delay: 140ms; }
+  .reveal-stagger > :nth-child(4) { --reveal-delay: 210ms; }
+  .reveal-stagger > :nth-child(5) { --reveal-delay: 280ms; }
+  .reveal-stagger > :nth-child(n + 6) { --reveal-delay: 350ms; }
+}
+
+/* Header ganha sombra ao rolar a página (data-scrolled via HeaderNav). */
+.site-header {
+  transition: box-shadow 0.25s ease;
+}
+
+.site-header[data-scrolled="true"] {
+  box-shadow: 0 6px 24px rgb(35 44 115 / 0.1);
+}
+
+/* Abertura do dropdown e do menu mobile. */
+@media (prefers-reduced-motion: no-preference) {
+  .menu-enter {
+    animation: menu-enter 0.18s var(--ease-out-soft) both;
+  }
+}
+
+@keyframes menu-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Sublinhado que cresce no hover/foco (links de texto). */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition:
+    background-size 0.25s var(--ease-out-soft),
+    color 0.2s ease;
+}
+
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (hover: hover) {
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

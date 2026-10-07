@@ -11,8 +11,13 @@ prática). Nenhuma é Unsplash+ (licença paga).
 | `aplicacoes-logistica.jpg`   | Home — faixa de aplicações  | Hyundai Motor Group | https://unsplash.com/photos/a-factory-filled-with-lots-of-machines-and-boxes-h2rWePLKxvs |
 | `empresa-industria.jpg`      | Empresa — topo              | Homa Appliances   | https://unsplash.com/photos/a-large-machine-in-a-large-building-pWUyHVJgLhg |
 
-Logo: `public/brand/folhatec-logo.png` (200×41 px), enviado pela agência.
-Solicitar versão vetorial (SVG) ou PNG em alta resolução para telas retina.
+Logos (agência, "Elementos PNG", 07/10/2026), com fundo removido:
+- `public/brand/folhatec-logo.png` — logo principal com tagline, 1000×218 px
+  (de `folhatec_id.png`, 2000×2000). Header.
+- `public/brand/folhatec-logo-branco.png` — wordmark branco, 406×61 px
+  (recortado do post `quemsomos3.png`). Rodapé azul.
+
+Ainda vale pedir os arquivos vetoriais (SVG) do logo e do wordmark branco.
 
 Substituição: trocar os arquivos (mantendo proporção) ou cadastrar as fotos
 reais no Sanity (`homePage.hero.image`, `homePage.applications.image`,

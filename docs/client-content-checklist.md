@@ -19,7 +19,7 @@ folhatec.com.br) — **confirmar com a FolhaTec**:
 - [x] E-mail: folhatec@folhatec.com.br
 - [x] Telefone: +55 (47) 3374-5146
 - [x] Endereço: Rua José Brunner, 283, Galpão 06 – Czerniewicz, Jaraguá do Sul – SC, 89255-380
-- [x] Logo oficial (PNG 200×41) — **pedir SVG ou PNG em alta resolução**
+- [x] Logo oficial em alta resolução + versão branca para fundo escuro (PNG) — **pedir SVG**
 
 Ainda pendentes:
 

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Source_Sans_3 } from "next/font/google";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ScrollReveal } from "@/components/layout/ScrollReveal";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GtmNoScript, TrackingScripts } from "@/components/tracking/TrackingScripts";
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <SiteFooter />
         <FloatingWhatsApp settings={settings} />
         <AttributionCapture />
+        <ScrollReveal />
         <TrackingScripts />
         <JsonLd data={organizationJsonLd(settings)} />
       </body>

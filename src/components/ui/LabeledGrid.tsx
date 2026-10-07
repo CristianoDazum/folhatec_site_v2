@@ -21,12 +21,13 @@ export function LabeledGrid({
   return (
     <ul
       className={cn(
-        "grid gap-x-8 gap-y-2 sm:grid-cols-2",
+        "reveal-stagger grid gap-x-8 gap-y-2 sm:grid-cols-2",
         columns === 3 && "lg:grid-cols-3",
       )}
     >
       {items.map((item, index) => (
         <li
+          data-reveal
           key={item.label}
           className={cn("flex min-w-0 gap-4 border-t py-5", dark ? "border-white/15" : "border-line")}
         >

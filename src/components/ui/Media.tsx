@@ -30,7 +30,7 @@ export function Media({
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover"
+        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         {...(image.blurDataUrl ? { placeholder: "blur" as const, blurDataURL: image.blurDataUrl } : {})}
       />
     </div>

@@ -66,10 +66,31 @@ Baseado no roteiro de design da agência (06/10/2026).
   pedida no roteiro; trocar por `next/font/local` quando houver licença web.
 - Botões: `buttonClassName(variant, surface)` com `primary | secondary | ghost`
   e superfícies `light | dark`. `cn()` apenas junta classes completas.
-- Logo oficial em `public/brand/` (SiteSettings); no rodapé azul, sobre placa
-  branca.
+- Logos em `public/brand/` (SiteSettings / CMS): `folhatec-logo.png` (principal,
+  1000 px, header) e `folhatec-logo-branco.png` (`logoOnDark`, rodapé azul).
+  Sem `logoOnDark`, o rodapé usa o principal sobre placa branca.
 - Imagens: `Media` usa `next/image` (AVIF/WebP) quando há foto e a
   composição `IndustrialVisual` (SVG) quando não há.
+
+## Movimento e microinterações
+
+Padrões reutilizáveis (CSS em `globals.css` + Tailwind), sem biblioteca de
+animação:
+
+| Padrão | Onde | Como |
+| --- | --- | --- |
+| Entrada no scroll | `[data-reveal]` em títulos de seção, cards, listas, CTA, mídia | `ScrollReveal` (IntersectionObserver) + transição opacity/translate; `.reveal-stagger` escalona itens de grades |
+| Entrada no carregamento | topo das páginas (`.reveal`) | keyframe CSS |
+| Cards | `SolutionCard`, `SegmentCard`, `ArticleCard` | elevação, borda azul, filete amarelo no topo, zoom suave da imagem |
+| Botões | `buttonClassName` (`group/button`) | elevação + sombra, seta/ícone se desloca, `active:scale` |
+| Links de texto | `.link-underline` (rodapé, contatos, breadcrumbs) | sublinhado que cresce |
+| Header | `.site-header[data-scrolled]` | sombra ao rolar |
+| Dropdown / menu mobile | `.menu-enter` | fade + deslize curtos |
+
+Regras: só `opacity`/`transform` (sem layout shift — CLS testado);
+efeitos de hover só em `@media (hover: hover)` (padrão do `hover:` no
+Tailwind 4), sem hover "preso" em touch; `prefers-reduced-motion: reduce`
+desliga animações e não oculta nada; sem JavaScript, nada fica oculto.
 
 ## Responsividade
 

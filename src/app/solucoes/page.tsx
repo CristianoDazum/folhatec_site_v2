@@ -37,7 +37,7 @@ export default async function SolutionsPage() {
           <h2 id="categorias" className="sr-only">
             Categorias de solução
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="reveal-stagger grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {solutions.map((solution) => (
               <SolutionCard key={solution.slug} solution={solution} showQuoteCta />
             ))}

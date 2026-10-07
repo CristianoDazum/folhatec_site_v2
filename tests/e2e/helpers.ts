@@ -25,14 +25,22 @@ export const ALL_ROUTES = [...STATIC_ROUTES, ...DETAIL_ROUTES];
 export const FORBIDDEN_TEXT = [/\bTODO\b/, /lorem ipsum/i, /\bundefined\b/, /\bnull\b/, /\bNaN\b/, /PLACEHOLDER/i];
 
 /**
- * Aguarda carregamento, fontes e animações de entrada (.reveal) — mede o
- * estado final que o usuário vê. Não usa "networkidle": o prefetch de links
+ * Aguarda carregamento, fontes e animações — mede o estado final que o
+ * usuário vê. Rola a página inteira para disparar as entradas no scroll
+ * (ScrollReveal) e volta ao topo. Não usa "networkidle": o prefetch de links
  * do Next mantém requisições em segundo plano.
  */
 export async function settle(page: Page) {
   await page.waitForLoadState("load");
   await page.evaluate(async () => {
     await document.fonts.ready;
+    const step = Math.max(200, Math.floor(window.innerHeight * 0.8));
+    for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 16)));
+    }
+    window.scrollTo(0, 0);
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     await Promise.all(document.getAnimations().map((animation) => animation.finished.catch(() => undefined)));
   });
 }

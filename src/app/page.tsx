@@ -107,9 +107,10 @@ export default async function HomePage() {
       {/* Destaques — cards com quina assinatura no canto superior direito */}
       {hero.highlights.length ? (
         <div className="container-site pt-16 sm:pt-20">
-          <ul aria-label="Destaques" className="grid gap-4 sm:grid-cols-3 sm:gap-5">
+          <ul aria-label="Destaques" className="reveal-stagger grid gap-4 sm:grid-cols-3 sm:gap-5">
             {hero.highlights.map((item, index) => (
               <li
+                data-reveal
                 key={item}
                 className="flex min-h-40 min-w-0 flex-col justify-between gap-6 rounded-tr-brand bg-gradient-to-b from-surface-muted to-background p-7 sm:min-h-48 sm:p-8"
               >
@@ -133,7 +134,7 @@ export default async function HomePage() {
               title={content.solutionsIntro.title}
               description={content.solutionsIntro.description}
             />
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="reveal-stagger mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {solutions.map((solution) => (
                 <SolutionCard key={solution.slug} solution={solution} />
               ))}
@@ -151,15 +152,17 @@ export default async function HomePage() {
             title={content.applications.title}
             description={content.applications.description}
           />
+          <div data-reveal>
           <Media
             image={content.applications.image}
             visual="industry"
             sizes="(min-width: 1280px) 1280px, 100vw"
             className="mt-10 aspect-[16/9] rounded-bl-brand sm:aspect-[21/9]"
           />
-          <ul className="mt-8 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+          </div>
+          <ul className="reveal-stagger mt-8 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {content.applications.items.map((item) => (
-              <li key={item.label} className="flex items-center gap-3 border-b border-line py-4 text-base font-semibold">
+              <li data-reveal key={item.label} className="flex items-center gap-3 border-b border-line py-4 text-base font-semibold">
                 <span aria-hidden="true" className="h-3 w-3 shrink-0 bg-accent" />
                 {item.label}
               </li>
@@ -187,7 +190,7 @@ export default async function HomePage() {
                 <Icon name="arrow" size={16} />
               </Link>
             </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="reveal-stagger mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {segments.map((segment) => (
                 <SegmentCard key={segment.slug} segment={segment} />
               ))}

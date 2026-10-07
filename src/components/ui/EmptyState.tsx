@@ -13,7 +13,7 @@ export function EmptyState({
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-[var(--radius-panel)] border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
+    <div data-reveal className="rounded-[var(--radius-panel)] border border-line bg-surface px-6 py-12 text-center sm:px-12 sm:py-16">
       <span className="mx-auto flex size-14 items-center justify-center rounded-none bg-accent-soft text-accent-strong">
         <Icon name={icon} size={24} />
       </span>

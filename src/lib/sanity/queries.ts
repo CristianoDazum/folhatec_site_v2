@@ -29,6 +29,7 @@ export const siteSettingsQuery = /* groq */ `*[_type == "siteSettings"][0]{
   tagline,
   description,
   "logo": logo${image},
+  "logoOnDark": logoOnDark${image},
   phone,
   whatsapp,
   email,
